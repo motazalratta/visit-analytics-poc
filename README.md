@@ -76,7 +76,7 @@ http://localhost:8080/dags/search_analytics_load_raw_files
 
 ### ERD Diagram
 
-![ERD-Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/motazalratta/visit-analytics-poc/docs/raw-erd-diagram.iuml)
+![ERD-Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/motazalratta/visit-analytics-poc/main/docs/raw-erd-diagram.iuml)
 
 1. **List all visits with at least one click.**
 
