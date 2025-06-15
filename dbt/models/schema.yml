@@ -1,0 +1,180 @@
+version: 2
+
+sources:
+- name: raw
+  schema: default
+  tables:
+    - name: clicks
+    - name: searches
+    - name: keywords
+    - name: groups
+    - name: custom_events
+
+models:
+- name: stg_clicks
+  description: Staged clicks table with parsed JSON fields
+  columns:
+    - name: clickId
+      description: Unique click event ID
+      tests:
+        - not_null
+        - unique
+    - name: searchId
+      description: Foreign key to search session
+      tests:
+        - not_null
+
+- name: stg_searches
+  description: Staged searches table with JSON field extractions
+  columns:
+    - name: id
+      description: Search session unique ID
+      tests:
+        - not_null
+
+- name: stg_keywords
+  description: Keywords associated with each search
+  columns:
+    - name: searchId
+      description: Foreign key to search
+      tests:
+        - not_null
+    - name: keyword
+      description: The search term
+      tests:
+        - not_null
+
+- name: stg_custom_events
+  description: Custom event data with JSON field extractions
+  columns:
+    - name: customEventId
+      description: Unique custom event ID
+      tests:
+        - not_null
+        - unique
+    - name: lastSearchId
+      description: Associated search ID
+    - name: eventType
+      description: Type of the custom event
+    - name: eventValue
+      description: Value associated with the event
+    - name: datetime
+      description: Timestamp of the custom event
+
+- name: mart_keywords_summary
+  description: Summary metrics for each keyword
+  columns:
+    - name: keyword
+      description: Search keyword
+      tests:
+        - not_null
+    - name: total_occurrences
+      description: Number of times this keyword was used
+    - name: first_seen
+      description: Earliest occurrence of the keyword
+    - name: last_seen
+      description: Most recent occurrence of the keyword
+
+- name: mart_user_engagement
+  description: Aggregated user engagement metrics
+  columns:
+    - name: user_id
+      description: User identifier
+      tests:
+        - not_null
+        - unique
+    - name: total_searches
+      description: Total number of searches
+    - name: total_clicks
+      description: Total number of clicks
+    - name: first_activity
+      description: Earliest activity timestamp
+    - name: last_activity
+      description: Latest activity timestamp
+
+- name: mart_search_activity
+  description: Fact table for search and click activity
+  columns:
+    - name: search_id
+      description: Unique search ID
+      tests:
+        - not_null
+    - name: datetime
+      description: Timestamp of the search
+    - name: user_id
+      description: User who made the search
+      tests:
+        - not_null
+    - name: username
+      description: Username of the user
+    - name: city
+      description: City of the user
+    - name: country
+      description: Country of the user
+    - name: language
+      description: Language of the user
+    - name: browser
+      description: Browser used
+    - name: device_category
+      description: Device category used
+    - name: query_pipeline
+      description: Pipeline used in search
+    - name: number_of_results
+      description: Results returned
+    - name: response_time_ms
+      description: Response time in ms
+    - name: keyword
+      description: Keyword used
+    - name: group_name
+      description: Group associated
+    - name: click_id
+      description: Associated click ID
+    - name: document_title
+      description: Clicked document title
+    - name: click_rank
+      description: Rank of click
+    - name: click_cause
+      description: Cause of click
+    - name: visitor_id
+      description: Anonymous visitor ID
+
+- name: mart_all_events
+  description: BI-ready mart with all major events (search, click, custom_event) unified. Use for analytics and reporting.
+  columns:
+    - name: visit_id
+      description: Session or visit ID
+      tests:
+        - not_null
+    - name: sequence_number
+      description: Sequence of the event
+    - name: datetime
+      description: Event timestamp
+    - name: event_type
+      description: "Event type: search, click, custom_event"
+      tests:
+        - accepted_values:
+            values: ["search", "click", "custom_event"]
+    - name: event_id
+      description: Unique event ID
+      tests:
+        - not_null
+    - name: event_details
+      description: Details of the event
+    - name: time_diff_ms
+      description: Time since previous event in milliseconds
+
+- name: mart_daily_traffic
+  description: Daily BI-ready traffic metrics
+  columns:
+    - name: date
+      description: Date of activity
+      tests:
+        - not_null
+    - name: daily_active_users
+      description: Number of distinct users
+    - name: total_searches
+      description: Searches per day
+    - name: total_clicks
+      description: Clicks per day
+    - name: unique_visitors
+      description: Distinct visitors by day

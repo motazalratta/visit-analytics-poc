@@ -1,0 +1,13 @@
+.DS_Store
+**/__pycache__/
+
+airflow/data/
+airflow/logs/
+
+clickhouse/logs/
+
+dbt/logs/
+dbt/target/
+dbt/.user.yml
+
+minio/data/

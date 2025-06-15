@@ -1,0 +1,14 @@
+clickhouse:
+  target: dev
+  outputs:
+    dev:
+      type: clickhouse
+      schema: default
+      host: clickhouse
+      port: 8123
+      user: default
+      password: "1234"
+      secure: false
+      database: default
+      threads: 4
+      engine: http

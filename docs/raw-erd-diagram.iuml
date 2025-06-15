@@ -1,0 +1,222 @@
+@startuml
+' Hide the methods/fields to only show structure
+hide circle
+
+entity clicks {
+  *clickId : string
+  --
+  searchId : string
+  datetime : datetime
+  userAgent : string
+  isInternal : boolean
+  operatingSystemWithVersion : string
+  country : string
+  city : string
+  language : string
+  browserWithVersion : string
+  username : string
+  clickRank : int
+  splitTestRunVersion : string
+  anonymous : boolean
+  documentAuthor : string
+  browser : string
+  systemUriHash : string
+  documentUrl : string
+  rankingModifier : string
+  documentCategory : string
+  userId : string
+  originContext : string
+  originLevel3 : string
+  causeV2 : string
+  queryPipeline : string
+  deviceCategory : string
+  originLevel2 : string
+  originLevel1 : string
+  sourceName : string
+  region : string
+  splitTestRunName : string
+  clickOriginLevel2 : string
+  clickOriginLevel1 : string
+  customDatas : json
+  collectionName : string
+  visitorId : string
+  clickCustomData : json
+  mobile : boolean
+  documentTitle : string
+  visitId : string
+  clickCause : string
+}
+
+entity keywords {
+  *searchId : string
+  *keyword : string
+  --
+  datetime : datetime
+}
+
+entity groups {
+  *searchId : string
+  *groupName : string
+  --
+  datetime : datetime
+}
+
+entity searches {
+  *id : string
+  --
+  datetime : datetime
+  userAgent : string
+  searchIsContextual : boolean
+  isInternal : boolean
+  actionCause : string
+  operatingSystemWithVersion : string
+  country : string
+  city : string
+  batchId : string
+  language : string
+  browserWithVersion : string
+  username : string
+  numberOfResults : int
+  splitTestRunVersion : string
+  anonymous : boolean
+  browser : string
+  responseTimeMs : int
+  searchCustomData : json
+  searchOriginLevel1 : string
+  searchOriginLevel2 : string
+  withResults : boolean
+  userId : string
+  originContext : string
+  originLevel3 : string
+  causeV2 : string
+  queryPipeline : string
+  deviceCategory : string
+  originLevel2 : string
+  originLevel1 : string
+  region : string
+  splitTestRunName : string
+  advancedQueryExpression : string
+  customDatas : json
+  visitorId : string
+  queryExpression : string
+  withClicks : boolean
+  mobile : boolean
+  visitId : string
+  c_jsuiversion : string
+  c_product : string
+  c_facetvalue : string
+}
+
+entity custom_events {
+  *customEventId : string
+  --
+  lastSearchId : string
+  datetime : datetime
+  userAgent : string
+  isInternal : boolean
+  operatingSystemWithVersion : string
+  country : string
+  city : string
+  language : string
+  browserWithVersion : string
+  userName : string
+  splitTestRunVersion : string
+  anonymous : boolean
+  browser : string
+  userId : string
+  originContext : string
+  originLevel3 : string
+  deviceCategory : string
+  originLevel2 : string
+  originLevel1 : string
+  region : string
+  splitTestRunName : string
+  eventValue : string
+  customDatas : json
+  customEventCustomData : json
+  eventType : string
+  visitorId : string
+  customEventOriginLevel1 : string
+  customEventOriginLevel2 : string
+  mobile : boolean
+  visitId : string
+  c_loading_time : int
+  c_pagelanguage : string
+  c_card_type : string
+  c_browser_time : int
+  c_pageaudience : string
+  c_workgroup : string
+  c_jsuiversion : string
+}
+
+' Relationships
+clicks }o--|| searches : "searchId"
+keywords }o--|| searches : "searchId"
+groups }o--|| searches : "searchId"
+custom_events }o--|| searches : "lastSearchId"
+
+' JSON Field Documentation
+note right of clicks
+  **JSON Fields in customDatas & clickCustomData:**
+  • c_author
+  • c_entitlement
+  • c_product
+  • c_jsuiversion
+  • c_customvalue
+  • c_partners
+  • c_recommendation
+  • c_partnerstype
+  • c_ipaddress
+end note
+
+note right of custom_events
+  **JSON Fields in customDatas & customEventCustomData:**
+  • c_impressions
+  • c_currencycode
+  • c_detail
+  • c_coveo
+  • c_toto
+  • c_language
+  • c_useragent
+  • c_aq
+  • c_query
+  • c_errormessage
+  • c_errortype
+  • c_beer
+  • c_hello
+  • c_hasclicks
+  • c_entitlement
+  • c_product
+  • c_customvalue
+  • c_partners
+  • c_recommendation
+  • c_partnerstype
+  • c_ipaddress
+  • c_jsuiversion
+  
+  **Note:** Not all rows contain complete JSON data.
+  Some rows have all fields, others have partial data.
+end note
+
+note right of searches
+  **JSON Fields in searchCustomData & customDatas:**
+  • c_ipaddress
+  • c_customvalue
+  • c_resultssortby
+  • c_jsuiversion
+  • c_entitlement
+  • c_recommendation
+  • c_facetid
+  • c_partnerstype
+  • c_facettitle
+  • c_inputtitle
+  • c_interfacechangeto
+  • c_product
+  • c_facetvalue
+  • c_partners
+  
+  **Note:** Not all rows contain complete JSON data.
+  Some rows have all fields, others have partial data.
+end note
+
+@enduml

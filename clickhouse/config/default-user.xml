@@ -1,0 +1,10 @@
+<yandex>
+    <users>
+        <default>
+            <password>1234</password>
+            <networks>
+                <ip>::/0</ip>
+            </networks>
+        </default>
+    </users>
+</yandex>
