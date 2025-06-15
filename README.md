@@ -51,8 +51,9 @@ The `docker-compose.yml` file includes the following services:
 | --------- | ---------------------------------------------- | -------------------------- |
 | Airflow   | [http://localhost:8080](http://localhost:8080) | `airflow` / `airflow`        |
 | MinIO     | [http://localhost:9000](http://localhost:9000) | `minioadmin` / `minioadmin`  |
-| DBT Docs  | [http://localhost:8085](http://localhost:8085) | *No login required*        |
+| DBT Docs  | [http://localhost:8085/index.html](http://localhost:8085/index.html) | *No login required*        |
 | Metabase  | [http://localhost:3000](http://localhost:3000) | `test@test.com` / `test4567` |
+| Clickhouse| [http://localhost:8123/play](http://localhost:8123/play) | `default` / `1234` |
 
 ## 🚀 Startup Steps
 1. Start Docker Compose:
@@ -69,7 +70,8 @@ Visit [http://localhost:9000](http://localhost:9000) and upload your files to th
 http://localhost:8080/dags/search_analytics_load_raw_files
 ![dag1 screenshot](./docs/dag1_screenshot.png) 
 
-4. Run the Airflow DAG `search_analytics_dbt_dag` to trigger DBT transformations
+4. Run the Airflow DAG `search_analytics_dbt_dag` to trigger DBT transformations.
+http://localhost:8080/dags/search_analytics_dbt_dag
 ![dag2 screenshot](./docs/dag2_screenshot.png) 
 
 ## 📊 SQL Inights
@@ -88,8 +90,6 @@ ORDER BY visitId;
 ```
 
 2. **The percentage of search having clicks per day, over the last 7 days, including overall summary value (using a single SQL query, adding a column to produce the summary value for the overall period)**
-
-there are two options to solve this 
 
 #### Option 1: Using `withClicks` field in `searches` table:
 
